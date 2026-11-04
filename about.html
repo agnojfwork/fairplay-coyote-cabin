@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Fairplay Coyote Cabin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  .sbf-page *{margin:0;padding:0;box-sizing:border-box}
+  .sbf-page{
+    font-family:'Inter',sans-serif;
+    background:#fbf8f3;
+    color:#000f32;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  .sbf-page a{color:inherit}
+
+  .sbf-display{font-family:'Fraunces',serif;font-weight:400;letter-spacing:-0.02em;line-height:0.95}
+
+  /* NAV */
+  .sbf-nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(251,248,243,0.85);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(0,15,50,0.14);
+    padding:18px 6vw;
+    display:grid;
+    grid-template-columns:1fr auto 1fr;
+    align-items:center;
+    gap:30px;
+  }
+  .sbf-nav-left{display:flex;justify-content:flex-start;align-items:center}
+  .sbf-nav-center{display:flex;justify-content:center;align-items:center;gap:40px}
+  .sbf-nav-right{display:flex;justify-content:flex-end;align-items:center;gap:16px}
+  .sbf-logo{
+    font-family:'Fraunces',serif;
+    font-size:22px;font-weight:500;
+    letter-spacing:-0.01em;
+    color:#000f32;
+    text-decoration:none;
+  }
+  .sbf-logo span{color:#e03616;font-style:italic}
+  .sbf-menu-link{
+    font-size:13px;
+    font-weight:500;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:#000f32;
+    text-decoration:none;
+    position:relative;
+    padding:6px 0;
+    transition:color 0.3s ease;
+  }
+  .sbf-menu-link::after{
+    content:'';
+    position:absolute;
+    left:0;bottom:0;
+    width:0;height:1px;
+    background:#e03616;
+    transition:width 0.3s ease;
+  }
+  .sbf-menu-link:hover{color:#e03616}
+  .sbf-menu-link:hover::after{width:100%}
+  .sbf-menu-link.sbf-active{color:#e03616}
+  .sbf-menu-link.sbf-active::after{width:100%}
+  a.sbf-nav-cta{
+    background:#000f32;color:#fbf8f3;
+    padding:11px 22px;border-radius:50px;
+    text-decoration:none;font-size:13px;
+    font-weight:500;letter-spacing:0.02em;
+    transition:all 0.3s ease;
+    border:1px solid #000f32;
+    display:inline-block;
+    white-space:nowrap;
+  }
+  .sbf-nav-cta:hover{background:#e03616;border-color:#e03616;transform:translateY(-1px)}
+
+  /* Mobile menu toggle */
+  .sbf-menu-toggle{
+    display:none;
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding:8px;
+    width:40px;height:40px;
+    flex-direction:column;
+    justify-content:center;
+    gap:5px;
+  }
+  .sbf-menu-toggle span{
+    display:block;
+    width:22px;height:2px;
+    background:#000f32;
+    transition:all 0.3s ease;
+  }
+  .sbf-menu-toggle.sbf-open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .sbf-menu-toggle.sbf-open span:nth-child(2){opacity:0}
+  .sbf-menu-toggle.sbf-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+  /* HERO */
+  .sbf-hero{padding:80px 6vw 60px;position:relative;overflow:hidden}
+  .sbf-hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;max-width:1400px;margin:0 auto}
+  .sbf-eyebrow{
+    display:inline-flex;align-items:center;gap:12px;
+    font-size:12px;letter-spacing:0.25em;
+    text-transform:uppercase;color:#e03616;
+    font-weight:500;margin-bottom:28px;
+  }
+  .sbf-eyebrow::before{content:'';width:32px;height:1px;background:#e03616}
+  .sbf-hero h1{font-size:clamp(48px,8vw,120px);margin-bottom:30px;color:#000f32}
+  .sbf-hero h1 .sbf-accent{color:#e03616;font-style:italic;font-weight:300}
+  .sbf-hero-meta{
+    border-top:1px solid rgba(0,15,50,0.14);
+    padding-top:30px;display:flex;gap:50px;flex-wrap:wrap;
+  }
+  .sbf-meta-item{display:flex;flex-direction:column}
+  .sbf-meta-label{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(0,15,50,0.62);margin-bottom:6px}
+  .sbf-meta-value{font-family:'Fraunces',serif;font-size:22px;color:#000f32}
+
+  .sbf-hero-image{
+    aspect-ratio:4/5;
+    background:url('/images/gal1.png') center/cover;
+    border-radius:4px;
+    position:relative;
+    box-shadow:0 30px 80px -20px rgba(0,15,50,0.25);
+  }
+  .sbf-hero-image::after{
+    content:'EST. 2018';
+    position:absolute;bottom:24px;left:24px;
+    background:#fbf8f3;color:#000f32;
+    padding:10px 18px;font-size:11px;letter-spacing:0.2em;font-weight:600;
+  }
+
+  /* MARQUEE */
+  .sbf-marquee{background:#000f32;color:#f5f1ea;padding:24px 0;overflow:hidden;position:relative}
+  .sbf-marquee-track{
+    display:flex;gap:60px;white-space:nowrap;
+    animation:sbfScroll 35s linear infinite;
+    font-family:'Fraunces',serif;font-size:28px;font-style:italic;font-weight:300;
+  }
+  .sbf-marquee-track span{display:flex;align-items:center;gap:60px}
+  .sbf-marquee-track span::after{content:'\2726';color:#e03616;font-style:normal}
+  @keyframes sbfScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+  /* STORY */
+  .sbf-story{padding:120px 6vw;max-width:1400px;margin:0 auto}
+  .sbf-story-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:80px;align-items:start}
+  .sbf-story-left{
+    position:sticky;
+    top:120px;
+    display:flex;
+    flex-direction:column;
+    gap:30px;
+  }
+  .sbf-story-label{
+    font-size:11px;letter-spacing:0.25em;text-transform:uppercase;
+    color:rgba(0,15,50,0.62);font-weight:500;
+  }
+  .sbf-story-photo-side{
+    width:100%;
+    aspect-ratio:3/4;
+    background-image:url('/images/home-hero-img.png');
+    background-size:cover;
+    background-position:center;
+    border-radius:4px;
+    box-shadow:0 30px 60px -30px rgba(0,15,50,0.3);
+    transition:transform 0.6s ease;
+  }
+  .sbf-story-photo-side:hover{transform:translateY(-4px)}
+  .sbf-story-photo-caption{
+    font-family:'Fraunces',serif;
+    font-size:14px;
+    font-style:italic;
+    color:rgba(0,15,50,0.6);
+    line-height:1.4;
+  }
+  .sbf-story h2{font-size:clamp(36px,4.5vw,64px);margin-bottom:40px;line-height:1.05;color:#000f32}
+  .sbf-story h2 .sbf-highlight{color:#e03616;font-style:italic;font-weight:300}
+  .sbf-story p{font-size:18px;color:#000f32;margin-bottom:24px;max-width:620px}
+  .sbf-story p.sbf-lead{font-family:'Fraunces',serif;font-size:24px;font-weight:400;line-height:1.4;color:#000000}
+
+  /* FEATURES */
+  .sbf-features{background:#000f32;color:#f5f1ea;padding:120px 6vw;position:relative;overflow:hidden}
+  .sbf-features::before{
+    content:'';position:absolute;top:-200px;right:-200px;
+    width:500px;height:500px;border-radius:50%;
+    background:radial-gradient(circle,#e03616 0%,transparent 70%);
+    opacity:0.25;pointer-events:none;
+  }
+  .sbf-features-inner{max-width:1400px;margin:0 auto;position:relative;z-index:1}
+  .sbf-features-head{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-bottom:80px;align-items:end}
+  .sbf-features h2{font-size:clamp(40px,5vw,72px);line-height:1.05;color:#f5f1ea}
+  .sbf-features h2 .sbf-italic-accent{color:#e03616;font-style:italic;font-weight:300}
+  .sbf-features-intro{font-size:17px;color:rgba(245,241,234,0.7);max-width:420px}
+  .sbf-features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+  .sbf-feature{border-top:1px solid rgba(245,241,234,0.18);padding-top:32px;transition:all 0.4s ease}
+  .sbf-feature:hover{border-top-color:#e03616}
+  .sbf-feature-num{font-family:'Fraunces',serif;font-size:14px;color:#e03616;margin-bottom:24px;letter-spacing:0.1em}
+  .sbf-feature h3{font-family:'Fraunces',serif;font-size:28px;font-weight:400;margin-bottom:14px;line-height:1.2;color:#f5f1ea}
+  .sbf-feature p{font-size:15px;color:rgba(245,241,234,0.65);line-height:1.6}
+
+  /* STATS */
+  .sbf-stats{padding:100px 6vw;background:#fbf8f3;max-width:1400px;margin:0 auto}
+  .sbf-stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:40px}
+  .sbf-stat{padding:30px 0;border-top:2px solid #000000}
+  .sbf-stat-num{font-family:'Fraunces',serif;font-size:clamp(48px,5vw,72px);color:#000f32;line-height:1;margin-bottom:14px;font-weight:400}
+  .sbf-stat-num .sbf-rust{color:#e03616}
+  .sbf-stat-label{font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(0,15,50,0.62);font-weight:500}
+
+  /* HOST */
+  .sbf-host{padding:120px 6vw;max-width:1400px;margin:0 auto}
+  .sbf-host-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:80px;align-items:center}
+  .sbf-host-image{
+    aspect-ratio:1;
+    background:url('https://www.coloradorockymountainretreats.com/sagebrushonfisher-imgs/host.jpg') center/cover;
+    border-radius:50%;position:relative;
+    box-shadow:0 30px 80px -20px rgba(0,15,50,0.3);
+  }
+  .sbf-host-image::after{
+    content:'SUPERHOST';
+    position:absolute;bottom:20px;left:50%;transform:translateX(-50%);
+    background:#e03616;color:#fbf8f3;padding:8px 18px;
+    font-size:11px;letter-spacing:0.2em;font-weight:600;border-radius:50px;
+  }
+  .sbf-host h2{font-size:clamp(36px,4.5vw,60px);margin-bottom:30px;line-height:1.05;color:#000f32}
+  .sbf-host h2 .sbf-italic{color:#e03616;font-style:italic;font-weight:300}
+  .sbf-host blockquote{
+    font-family:'Fraunces',serif;font-size:22px;font-style:italic;font-weight:300;
+    line-height:1.5;margin-bottom:30px;color:#000f32;
+    padding-left:24px;border-left:2px solid #e03616;
+  }
+  .sbf-host-signature{display:flex;align-items:center;gap:20px;margin-top:30px}
+  .sbf-host-name{font-family:'Fraunces',serif;font-size:24px;font-style:italic;color:#000000}
+  .sbf-host-role{font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(0,15,50,0.62)}
+
+  /* CTA */
+  .sbf-cta{background:#000000;color:#f5f1ea;padding:120px 6vw;text-align:center;position:relative;overflow:hidden}
+  .sbf-cta::before{
+    content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:120%;height:200%;
+    background:radial-gradient(ellipse,rgba(224,54,22,0.08) 0%,transparent 50%);
+    pointer-events:none;
+  }
+  .sbf-cta-inner{position:relative;z-index:1;max-width:900px;margin:0 auto}
+  .sbf-cta h2{font-size:clamp(48px,7vw,96px);margin-bottom:30px;line-height:1;color:#f5f1ea}
+  .sbf-cta h2 .sbf-italic-accent{color:#e03616;font-style:italic;font-weight:300}
+  .sbf-cta p{font-size:18px;color:rgba(245,241,234,0.7);margin-bottom:48px;max-width:560px;margin-left:auto;margin-right:auto}
+  .sbf-cta-btn{
+    display:inline-block;background:#e03616;color:#fbf8f3;
+    padding:20px 44px;border-radius:50px;text-decoration:none;
+    font-size:15px;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;
+    transition:all 0.3s ease;border:1px solid #e03616;
+  }
+  .sbf-cta-btn:hover{background:transparent;color:#e03616;transform:translateY(-2px)}
+
+  /* FOOTER */
+  .sbf-footer{background:#000000;color:rgba(245,241,234,0.5);padding:40px 6vw;text-align:center;font-size:13px;border-top:1px solid rgba(245,241,234,0.1)}
+  .sbf-footer a{color:#e03616;text-decoration:none}
+
+  /* REVEAL */
+  .sbf-reveal{opacity:0;transform:translateY(40px);transition:opacity 1s ease,transform 1s ease}
+  .sbf-reveal.sbf-visible{opacity:1;transform:translateY(0)}
+
+  /* RESPONSIVE */
+  @media (max-width:900px){
+    .sbf-hero-grid,.sbf-story-grid,.sbf-host-grid,.sbf-features-head{grid-template-columns:1fr;gap:50px}
+    .sbf-features-grid{grid-template-columns:1fr;gap:30px}
+    .sbf-stats-grid{grid-template-columns:repeat(2,1fr);gap:24px}
+    .sbf-story-label{position:static}
+    .sbf-story-left{position:static}
+    .sbf-story-photo-side{aspect-ratio:4/3;max-width:100%}
+    .sbf-host-image{max-width:280px;margin:0 auto}
+    .sbf-hero-meta{gap:30px}
+    .sbf-meta-value{font-size:18px}
+    .sbf-marquee-track{font-size:22px}
+    .sbf-story,.sbf-features,.sbf-host,.sbf-cta{padding-top:80px;padding-bottom:80px}
+
+    /* Mobile nav */
+    .sbf-nav{
+      grid-template-columns:1fr auto;
+      padding:14px 6vw;
+    }
+    .sbf-logo{font-size:18px}
+    .sbf-nav-right .sbf-nav-cta{display:none}
+    .sbf-menu-toggle{display:flex}
+    .sbf-nav-center{
+      position:absolute;
+      top:100%;left:0;right:0;
+      background:#fbf8f3;
+      flex-direction:column;
+      align-items:stretch;
+      gap:0;
+      padding:0;
+      max-height:0;
+      overflow:hidden;
+      transition:max-height 0.4s ease,padding 0.4s ease;
+      border-bottom:1px solid rgba(0,15,50,0.14);
+    }
+    .sbf-nav-center.sbf-open{
+      max-height:400px;
+      padding:20px 6vw 30px;
+    }
+    .sbf-nav-center .sbf-menu-link{
+      padding:16px 0;
+      border-bottom:1px solid rgba(0,15,50,0.08);
+      text-align:center;
+      font-size:14px;
+    }
+    .sbf-nav-center .sbf-menu-link:last-of-type{border-bottom:none}
+    .sbf-nav-center .sbf-menu-link::after{display:none}
+    .sbf-nav-center .sbf-nav-cta{
+      display:inline-block;
+      margin-top:18px;
+      padding:14px 28px;
+      align-self:center;
+      text-align:center;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="sbf-page">
+
+<nav class="sbf-nav">
+  <div class="sbf-nav-left">
+    <a href="/" class="sbf-logo">Fairplay Coyote Cabin</a>
+  </div>
+  <div class="sbf-nav-center" id="sbfNavCenter">
+    <a href="/" class="sbf-menu-link">Home</a>
+    <a href="/about" class="sbf-menu-link sbf-active">About</a>
+    <a href="/contact" class="sbf-menu-link">Contact</a>
+  </div>
+  <div class="sbf-nav-right">
+    <a href="https://book.fairplaycoyotecabin.com/" target="_blank" class="sbf-nav-cta">Book Now</a>
+    <button class="sbf-menu-toggle" id="sbfMenuToggle" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</nav>
+
+<section class="sbf-hero">
+  <div class="sbf-hero-grid">
+    <div class="sbf-reveal">
+      <div class="sbf-eyebrow">About Our Cabin</div>
+      <h1 class="sbf-display">A Peaceful <span class="sbf-accent">Cabin Retreat</span> with Stunning Mountain Views</h1>
+      <div class="sbf-hero-meta">
+        <div class="sbf-meta-item">
+          <span class="sbf-meta-label">Location</span>
+          <span class="sbf-meta-value">Pike-San Isabel National Forest</span>
+        </div>
+        <div class="sbf-meta-item">
+          <span class="sbf-meta-label">Rating</span>
+          <span class="sbf-meta-value">★ 5.0 · 64 Reviews</span>
+        </div>
+        <div class="sbf-meta-item">
+          <span class="sbf-meta-label">Status</span>
+          <span class="sbf-meta-value">Superhost · Top 5%</span>
+        </div>
+      </div>
+    </div>
+    <div class="sbf-hero-image sbf-reveal"></div>
+  </div>
+</section>
+
+<div class="sbf-marquee">
+  <div class="sbf-marquee-track">
+    <span> King + 2 Queen beds in 3 Bedrooms</span>
+    <span>Sauna</span>
+    <span>Indoor Wood-Fired Oven</span>
+    <span>Massive Masonry Fireplace</span>
+    <span>Huge Weber Smart Grill</span>
+    <span>Gas Firepit</span>
+    <span>Panoramic Mountain Views from Every Room</span>
+    <span>Coffee Bar with Nespresso, Keurig, pods & more</span>
+    <span>Dog Friendly!</span>
+    <span>Access to a Fishing Pond</span>
+    <span>Dark Sky for Stargazing</span>
+    <span>Starlink Internet: 270 Mbps download / 27 Mbps upload</span>
+	<span>Office with two desks + one monitor</span>
+  </div>
+</div>
+
+<section class="sbf-story">
+  <div class="sbf-story-grid">
+    <div class="sbf-story-left sbf-reveal">
+      <div class="sbf-story-label">— Our Story</div>
+      <div class="sbf-story-photo-side"></div>
+      <div class="sbf-story-photo-caption">We are at 10,300 ft in elevation in the beautiful Rocky Mountains</div>
+    </div>
+    <div class="sbf-reveal">
+      <h2 class="sbf-display">Discover Adventure & Comfort at <span class="sbf-highlight">Coyote Mountain Cabin</span> </h2>
+      <p>The cabin sits on 6 acres so you will enjoy plenty of privacy (and will most likely see wildlife). However, there is a horse barn on the adjacent property that the owners may use at times. The house and the barn share the long driveway as well. The barn is not part of the 6 acres our guests enjoy and we will not disturb any of our guests (however feel free to wave if you see us!). The house and the barn are separated by a large aspen grove and no horses live on site at this time.</p>
+	  <p>Coyote Cabin is 25 miles to Breckenridge and 5 miles from the town of Fairplay. 45 mins to Buena Vista for whitewater rafting, or 1 hour from Salida (fun hipster town). It's 1.5 hrs from Downtown Denver and 2 Hours to Denver International Airport.
+
+	It is located within walking distance to Pike-San Isabel National Forest for easy hiking, back country skiing, snow shoeing, bike riding, etc.
+	While our roads are maintained by Park County, it is best to have a 4WD or AWD in winter months (not necessary in Summer months). The last 1 mile to the property is unpaved.
+	</p>
+    </div>
+  </div>
+</section>
+
+<section class="sbf-features">
+  <div class="sbf-features-inner">
+    <div class="sbf-features-head">
+      <h2 class="sbf-display sbf-reveal">The Space <span class="sbf-italic-accent">details.</span></h2>
+      <p class="sbf-features-intro sbf-reveal">Guests love this home’s spaciousness for a comfortable stay.</p>
+    </div>
+    <div class="sbf-features-grid">
+      <div class="sbf-feature sbf-reveal">
+        <div class="sbf-feature-num">— 01</div>
+        <h3>Indoor Sauna</h3>
+        <p>In the master bathroom, enjoy additional warmth after playing in the snow.</p>
+      </div>
+      <div class="sbf-feature sbf-reveal">
+        <div class="sbf-feature-num">— 02</div>
+        <h3>Full Kitchen</h3>
+        <p>Fully stocked kitchen with everything you need to cook a homemade meal or simply toast & coffee. We have all the pots, pans, dishes, crockpot, ninja blender/chopper, ladles, spatulas, baking pans etc that you'll need!</p>
+      </div>
+      <div class="sbf-feature sbf-reveal">
+        <div class="sbf-feature-num">— 03</div>
+        <h3>Indoor Wood Fired Masonry Oven</h3>
+        <p>Great for homemade pizzas!</p>
+      </div>
+      <div class="sbf-feature sbf-reveal">
+        <div class="sbf-feature-num">— 04</div>
+        <h3>Coffee</h3>
+        <p>We love it and know you do too. We have a coffee bar dedicated to it all. You'll find a Nespresso, drip coffee maker, electic frother, kettle, Keurig, chemex pour-over and bean grinder along with pods, sugar, tea, creamer, etc.</p>
+      </div>
+      <div class="sbf-feature sbf-reveal">
+        <div class="sbf-feature-num">— 05</div>
+        <h3>Smart TV</h3>
+        <p> 65" Samsung Smart TV in the Living Room and 43" Samsung Smart TV in the Master Bedroom.</p>
+      </div>
+      <div class="sbf-feature sbf-reveal">
+        <div class="sbf-feature-num">— 06</div>
+        <h3>Internet</h3>
+        <p>Super fast reliable Starlink Internet</p>
+      </div>
+	  <div class="sbf-feature sbf-reveal">
+        <div class="sbf-feature-num">— 07</div>
+        <h3>Grill</h3>
+        <p> Weber Genesis EX propane gas grill - 750 square inches of cooking area</p>
+      </div>
+	   <div class="sbf-feature sbf-reveal">
+        <div class="sbf-feature-num">— 09</div>
+        <h3>Outdoor Propane Fire Pit</h3>
+        <p>Unwind by the outdoor propane fire pit and enjoy cozy evenings under the stars with instant warmth and inviting ambiance.</p>
+      </div>
+	  <div class="sbf-feature sbf-reveal">
+        <div class="sbf-feature-num">— 10</div>
+        <h3>Passive Solar</h3>
+        <p>Coyote Cabin has floor to ceiling windows utilizing passive solar as one of our heat sources. You never have a reason to be cold inside the Coyote Cabin (you may even need to open a window or 2 on sunny days. Yes, even when it's in the single digits outside). </p>
+      </div>
+	  <div class="sbf-feature sbf-reveal">
+        <div class="sbf-feature-num">— 11</div>
+        <h3>Masonry Stove / Russian Fireplace</h3>
+        <p> Additionally, the cabin is outfitted with our gem - a massive floor to ceiling Russian fireplace that is a centuries old concept and far more efficient than a usual household fireplace.  </p>
+      </div>
+	  <div class="sbf-feature sbf-reveal">
+        <div class="sbf-feature-num">— 12</div>
+        <h3>Dog Friendly </h3>
+        <p>We accept max 2 well behaved, adult, housebroken dogs for an additional fee. This covers the extra time it takes to remove hairs, etc from the house and bedding and keep our house looking great.</p>
+      </div>
+	  <div class="sbf-feature sbf-reveal">
+        <div class="sbf-feature-num">— 12</div>
+        <h3>Fishing Pond</h3>
+        <p> Our guests have access to a community fishing pond.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sbf-stats">
+  <div class="sbf-stats-grid">
+    <div class="sbf-stat sbf-reveal">
+      <div class="sbf-stat-num"><span class="sbf-rust">5.0</span><span style="font-size:0.5em;color:rgba(0,15,50,0.62);">★</span></div>
+      <div class="sbf-stat-label">Guest Rating</div>
+    </div>
+    <div class="sbf-stat sbf-reveal">
+      <div class="sbf-stat-num">10<span style="font-size:0.4em;">yrs</span></div>
+      <div class="sbf-stat-label">Hosting Experience</div>
+    </div>
+    <div class="sbf-stat sbf-reveal">
+      <div class="sbf-stat-num">243</div>
+      <div class="sbf-stat-label">Total Reviews</div>
+    </div>
+    <div class="sbf-stat sbf-reveal">
+      <div class="sbf-stat-num">100<span style="font-size:0.5em;">%</span></div>
+      <div class="sbf-stat-label">Response Rate</div>
+    </div>
+  </div>
+</section>
+
+<section class="sbf-host">
+  <div class="sbf-host-grid">
+    <div class="sbf-host-image sbf-reveal"></div>
+    <div class="sbf-reveal">
+      <div class="sbf-eyebrow">Meet Your Host</div>
+      <h2 class="sbf-display">Hosted by <span class="sbf-italic">Jessica.</span></h2>
+      <blockquote>"Wherever we stay, we like to pretend we actually live in the places we visit. We cook, we relax, we explore. We expect our guests to be the kind of guests we are — feel free to cook in our place, kick back, and enjoy yourself."</blockquote>
+      <div class="sbf-host-signature">
+        <div>
+          <div class="sbf-host-name">Jessica</div>
+          <div class="sbf-host-role">Superhost · 10 Years Hosting</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sbf-cta">
+  <div class="sbf-cta-inner">
+    <h2 class="sbf-display sbf-reveal">Comfort meets <span class="sbf-italic-accent">adventure.</span></h2>
+    <p class="sbf-reveal">Whether you’re seeking relaxation, outdoor activities, or quality time with loved ones, this mountain cabin retreat is the ideal destination for your next unforgettable escape.!</p>
+    <a href="https://book.sagebrushonfisher.com/" target="_blank" class="sbf-cta-btn sbf-reveal">Check Availability</a>
+  </div>
+</section>
+
+<footer class="sbf-footer">
+  © 2026 Sagebrush on Fisher · Hosted by Jessica · <a href="https://book.sagebrushonfisher.com/" target="_blank">Book Direct</a>
+</footer>
+
+</div>
+
+<script>
+  (function(){
+    var els = document.querySelectorAll('.sbf-reveal');
+    if(!('IntersectionObserver' in window)){
+      els.forEach(function(el){el.classList.add('sbf-visible')});
+    } else {
+      var obs = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry,i){
+          if(entry.isIntersecting){
+            setTimeout(function(){entry.target.classList.add('sbf-visible')}, i*80);
+            obs.unobserve(entry.target);
+          }
+        });
+      },{threshold:0.12,rootMargin:'0px 0px -50px 0px'});
+      els.forEach(function(el){obs.observe(el)});
+    }
+
+    // Mobile menu toggle
+    var toggle = document.getElementById('sbfMenuToggle');
+    var menu = document.getElementById('sbfNavCenter');
+    if(toggle && menu){
+      toggle.addEventListener('click', function(){
+        toggle.classList.toggle('sbf-open');
+        menu.classList.toggle('sbf-open');
+      });
+      menu.querySelectorAll('a').forEach(function(link){
+        link.addEventListener('click', function(){
+          toggle.classList.remove('sbf-open');
+          menu.classList.remove('sbf-open');
+        });
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>
