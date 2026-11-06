@@ -309,10 +309,11 @@
     </div>
 
     <form class="sbf-contact-form" id="sbfContactForm"
-          action="https://formsubmit.co/ajax/agnojf.work@gmail.com" method="POST">
+          action="https://formsubmit.co/agnojf.work@gmail.com" method="POST">
       <input type="hidden" name="_subject" value="New Fairplay Coyote Cabin Inquiry">
       <input type="hidden" name="_template" value="table">
       <input type="hidden" name="_replyto" value="">
+      <input type="hidden" name="_next" id="sbfFormNext" value="">
       <div class="sbf-honeypot" aria-hidden="true">
         <label>Leave this field empty<input type="text" name="_honey" tabindex="-1" autocomplete="off"></label>
       </div>
@@ -371,45 +372,34 @@
     var status = document.getElementById('sbfFormStatus');
     var submitButton = document.getElementById('sbfSubmitButton');
     if(form && status && submitButton){
-      form.addEventListener('submit', async function(event){
-        event.preventDefault();
-        status.textContent = '';
+      // Return visitors to this page after FormSubmit processes the message.
+      var nextField = document.getElementById('sbfFormNext');
+      if(nextField){
+        nextField.value = window.location.origin + window.location.pathname + '?sent=1';
+      }
+
+      // Show confirmation after the browser returns from FormSubmit.
+      if(new URLSearchParams(window.location.search).get('sent') === '1'){
+        status.textContent = 'Thank you! Your message has been sent. We will be in touch soon.';
+        status.classList.add('success');
+      }
+
+      // Use a normal HTML form POST instead of fetch(). This avoids browser
+      // cross-origin/CORS fetch failures and lets FormSubmit handle the redirect.
+      form.addEventListener('submit', function(event){
+        if(!form.reportValidity()){
+          event.preventDefault();
+          return;
+        }
+        var emailField = form.querySelector('input[name="email"]');
+        var replyToField = form.querySelector('input[name="_replyto"]');
+        if(emailField && replyToField){
+          replyToField.value = emailField.value;
+        }
+        status.textContent = 'Sending your message...';
         status.className = 'sbf-form-status';
-
-        if(!form.reportValidity()) return;
-
-        var formData = new FormData(form);
-        // FormSubmit uses this field as the Reply-To address in the notification.
-        formData.set('_replyto', formData.get('email'));
-        var payload = Object.fromEntries(formData.entries());
-
         submitButton.disabled = true;
         submitButton.querySelector('span').textContent = 'Sending...';
-        status.textContent = 'Sending your message...';
-
-        try{
-          var response = await fetch(form.action, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
-            },
-            body: JSON.stringify(payload)
-          });
-          var result = await response.json();
-          if(!response.ok || result.success === 'error' || result.success === false){
-            throw new Error(result.message || 'We could not send your message. Please try again.');
-          }
-          form.reset();
-          status.textContent = 'Thank you! Your message has been sent. We will be in touch soon.';
-          status.classList.add('success');
-        }catch(error){
-          status.textContent = error.message || 'Something went wrong. Please try again or contact us directly.';
-          status.classList.add('error');
-        }finally{
-          submitButton.disabled = false;
-          submitButton.querySelector('span').textContent = 'Send Message';
-        }
       });
     }
   })();
