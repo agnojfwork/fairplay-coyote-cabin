@@ -139,8 +139,36 @@
     border:1px solid rgba(0,15,50,0.1);
     border-radius:4px;
     box-shadow:0 30px 60px -30px rgba(0,15,50,0.15);
-    text-align:center;
+    text-align:left;
   }
+  .sbf-form-heading{text-align:center}
+  .sbf-contact-form{margin-top:34px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .sbf-form-field{display:flex;flex-direction:column;gap:8px;min-width:0}
+  .sbf-form-field-full{grid-column:1 / -1}
+  .sbf-form-field label{font-size:12px;font-weight:600;letter-spacing:.04em;color:#000f32 !important}
+  .sbf-form-field input,.sbf-form-field textarea{
+    width:100%;border:1px solid rgba(0,15,50,.2);border-radius:3px;
+    background:#fbf8f3 !important;color:#000f32 !important;
+    padding:15px 16px;font:400 14px 'Inter',sans-serif;
+    outline:none;transition:border-color .2s ease,box-shadow .2s ease;
+  }
+  .sbf-form-field input:focus,.sbf-form-field textarea:focus{
+    border-color:#e03616;box-shadow:0 0 0 3px rgba(224,54,22,.10)
+  }
+  .sbf-form-field textarea{min-height:150px;resize:vertical}
+  .sbf-form-submit{
+    grid-column:1 / -1;justify-self:center;display:inline-flex;align-items:center;gap:12px;
+    border:1px solid #000f32;border-radius:50px;background:#000f32 !important;
+    color:#fbf8f3 !important;padding:17px 36px;margin-top:6px;cursor:pointer;
+    font:500 13px 'Inter',sans-serif;letter-spacing:.1em;text-transform:uppercase;
+    transition:all .25s ease
+  }
+  .sbf-form-submit:hover{background:#e03616 !important;border-color:#e03616;transform:translateY(-2px)}
+  .sbf-form-submit:disabled{opacity:.65;cursor:wait;transform:none}
+  .sbf-form-status{grid-column:1 / -1;text-align:center;min-height:24px;font-size:14px;margin:0 !important}
+  .sbf-form-status.success{color:#176b3a !important}
+  .sbf-form-status.error{color:#b42318 !important}
+  .sbf-honeypot{position:absolute !important;left:-5000px !important;width:1px !important;height:1px !important;overflow:hidden !important}
   .sbf-form-label-section{
     font-size:11px;letter-spacing:0.25em;
     text-transform:uppercase;
@@ -212,6 +240,9 @@
     .sbf-hero{padding:60px 6vw 40px}
     .sbf-form-area{padding:30px 6vw 80px}
     .sbf-form-placeholder{padding:40px 24px}
+    .sbf-contact-form{grid-template-columns:1fr;gap:16px}
+    .sbf-form-field-full,.sbf-form-submit,.sbf-form-status{grid-column:1}
+    .sbf-form-submit{justify-self:stretch;justify-content:center}
     .sbf-note{padding:60px 6vw}
 
     .sbf-nav{padding:14px 6vw}
@@ -271,20 +302,42 @@
 <!-- FORM AREA -->
 <section class="sbf-form-area">
   <div class="sbf-form-placeholder">
-    <div class="sbf-form-label-section" style="color:#e03616 !important;">— Send a Message</div>
-    <h2 style="color:#000f32 !important;">Drop us a <span class="sbf-italic" style="color:#e03616 !important;font-style:italic;">line.</span></h2>
-    <p style="color:#3a4868 !important;">Click below to open our contact form. We'll respond within one hour.</p>
+    <div class="sbf-form-heading">
+      <div class="sbf-form-label-section" style="color:#e03616 !important;">— Send a Message</div>
+      <h2 style="color:#000f32 !important;">Drop us a <span class="sbf-italic" style="color:#e03616 !important;font-style:italic;">line.</span></h2>
+      <p style="color:#3a4868 !important;">Have a question about your stay, the neighborhood, or extended bookings? Send us a message and we'll get back to you.</p>
+    </div>
 
-    <!-- POPUP TRIGGER BUTTON -->
-    <a href="#box6c7aa7ae-4363-6771-5c19-1eec765c13d4"
-       onclick="sbfOpenPopup(event)"
-       style="display:inline-flex;align-items:center;gap:12px;background:#000f32 !important;color:#fbf8f3 !important;padding:20px 44px;border-radius:50px;border:1px solid #000f32;font-family:'Inter',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;text-decoration:none;margin-top:20px;transition:all 0.3s ease;"
-       onmouseover="this.style.background='#e03616';this.style.borderColor='#e03616';this.style.transform='translateY(-2px)';"
-       onmouseout="this.style.background='#000f32';this.style.borderColor='#000f32';this.style.transform='translateY(0)';">
-      <span style="color:#fbf8f3 !important;">Open Contact Form</span>
-      <span style="color:#fbf8f3 !important;display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,0.15);font-size:14px;">→</span>
-    </a>
+    <form class="sbf-contact-form" id="sbfContactForm"
+          action="https://formsubmit.co/ajax/agnojf.work@gmail.com" method="POST">
+      <input type="hidden" name="_subject" value="New Fairplay Coyote Cabin Inquiry">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_replyto" value="">
+      <div class="sbf-honeypot" aria-hidden="true">
+        <label>Leave this field empty<input type="text" name="_honey" tabindex="-1" autocomplete="off"></label>
+      </div>
 
+      <div class="sbf-form-field">
+        <label for="sbfFullName">Full Name *</label>
+        <input id="sbfFullName" type="text" name="name" placeholder="Your full name" autocomplete="name" maxlength="100" required>
+      </div>
+      <div class="sbf-form-field">
+        <label for="sbfPhone">Phone Number *</label>
+        <input id="sbfPhone" type="tel" name="phone" placeholder="Your phone number" autocomplete="tel" maxlength="30" required>
+      </div>
+      <div class="sbf-form-field sbf-form-field-full">
+        <label for="sbfEmail">Email Address *</label>
+        <input id="sbfEmail" type="email" name="email" placeholder="you@example.com" autocomplete="email" maxlength="254" required>
+      </div>
+      <div class="sbf-form-field sbf-form-field-full">
+        <label for="sbfMessage">Message *</label>
+        <textarea id="sbfMessage" name="message" placeholder="How can we help you?" maxlength="5000" required></textarea>
+      </div>
+      <button class="sbf-form-submit" id="sbfSubmitButton" type="submit">
+        <span>Send Message</span><span aria-hidden="true">→</span>
+      </button>
+      <p class="sbf-form-status" id="sbfFormStatus" role="status" aria-live="polite"></p>
+    </form>
   </div>
 </section>
 
@@ -304,29 +357,6 @@
 </div>
 
 <script>
-  function sbfOpenPopup(e){
-    if(e) e.preventDefault();
-    var popupId = 'box6c7aa7ae-4363-6771-5c19-1eec765c13d4';
-    var popup = document.getElementById(popupId);
-    if(popup){
-      popup.style.display = 'block';
-      popup.style.visibility = 'visible';
-      popup.style.opacity = '1';
-      popup.classList.add('cv-visible','cv-open','active','open');
-      popup.classList.remove('cv-hidden','hidden');
-      popup.setAttribute('aria-hidden','false');
-      return false;
-    }
-    var parentLayer = document.querySelector('[data-layer-id="' + popupId + '"]');
-    if(parentLayer){
-      parentLayer.style.display = 'block';
-      parentLayer.classList.add('active','open','visible');
-      return false;
-    }
-    window.location.hash = popupId;
-    return false;
-  }
-
   (function(){
     var toggle = document.getElementById('sbfMenuToggle');
     var menu = document.getElementById('sbfNavCenter');
@@ -334,6 +364,52 @@
       toggle.addEventListener('click', function(){
         toggle.classList.toggle('sbf-open');
         menu.classList.toggle('sbf-open');
+      });
+    }
+
+    var form = document.getElementById('sbfContactForm');
+    var status = document.getElementById('sbfFormStatus');
+    var submitButton = document.getElementById('sbfSubmitButton');
+    if(form && status && submitButton){
+      form.addEventListener('submit', async function(event){
+        event.preventDefault();
+        status.textContent = '';
+        status.className = 'sbf-form-status';
+
+        if(!form.reportValidity()) return;
+
+        var formData = new FormData(form);
+        // FormSubmit uses this field as the Reply-To address in the notification.
+        formData.set('_replyto', formData.get('email'));
+        var payload = Object.fromEntries(formData.entries());
+
+        submitButton.disabled = true;
+        submitButton.querySelector('span').textContent = 'Sending...';
+        status.textContent = 'Sending your message...';
+
+        try{
+          var response = await fetch(form.action, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify(payload)
+          });
+          var result = await response.json();
+          if(!response.ok || result.success === 'error' || result.success === false){
+            throw new Error(result.message || 'We could not send your message. Please try again.');
+          }
+          form.reset();
+          status.textContent = 'Thank you! Your message has been sent. We will be in touch soon.';
+          status.classList.add('success');
+        }catch(error){
+          status.textContent = error.message || 'Something went wrong. Please try again or contact us directly.';
+          status.classList.add('error');
+        }finally{
+          submitButton.disabled = false;
+          submitButton.querySelector('span').textContent = 'Send Message';
+        }
       });
     }
   })();
