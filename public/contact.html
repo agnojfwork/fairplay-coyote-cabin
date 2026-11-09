@@ -275,7 +275,7 @@
 
 <nav class="sbf-nav">
   <div class="sbf-nav-left">
-    <a href="/" class="sbf-logo" style="color:#000f32 !important;">Fairplay Coyote Cabin</a>
+    <a href="/" class="sbf-logo" style="color:#000f32 !important;">Sagebrush<span style="color:#e03616 !important;">·</span>on Fisher</a>
   </div>
   <div class="sbf-nav-center" id="sbfNavCenter">
     <a href="/" class="sbf-menu-link" style="color:#000f32 !important;">Home</a>
@@ -309,14 +309,8 @@
     </div>
 
     <form class="sbf-contact-form" id="sbfContactForm"
-          action="https://formsubmit.co/serdenarj@gmail.com" method="POST">
+          action="https://formsubmit.co/agnojf.work@gmail.com" method="POST">
       <input type="hidden" name="_subject" value="New Fairplay Coyote Cabin Inquiry">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_replyto" value="">
-      <input type="hidden" name="_next" id="sbfFormNext" value="">
-      <div class="sbf-honeypot" aria-hidden="true">
-        <label>Leave this field empty<input type="text" name="_honey" tabindex="-1" autocomplete="off"></label>
-      </div>
 
       <div class="sbf-form-field">
         <label for="sbfFullName">Full Name *</label>
@@ -337,28 +331,8 @@
       <button class="sbf-form-submit" id="sbfSubmitButton" type="submit">
         <span>Send Message</span><span aria-hidden="true">→</span>
       </button>
-      <p class="sbf-form-status" id="sbfFormStatus" role="status" aria-live="polite"></p>
     </form>
   </div>
-  <div class="container">
-  <h1>FormSubmit Demo</h1>
-  <form target="_blank" action="https://formsubmit.co/serdenarj@gmail.com" method="POST">
-    <div class="form-group">
-      <div class="form-row">
-        <div class="col">
-          <input type="text" name="name" class="form-control" placeholder="Full Name" required>
-        </div>
-        <div class="col">
-          <input type="email" name="email" class="form-control" placeholder="Email Address" required>
-        </div>
-      </div>
-    </div>
-    <div class="form-group">
-      <textarea placeholder="Your Message" class="form-control" name="message" rows="10" required></textarea>
-    </div>
-    <button type="submit" class="btn btn-lg btn-dark btn-block">Submit Form</button>
-  </form>
-</div>
 </section>
 
 <!-- CLOSING NOTE -->
@@ -377,6 +351,8 @@
 </div>
 
 <script>
+  // Mobile navigation only. The contact form uses FormSubmit's standard
+  // HTML POST exactly like its working test form (no fetch/AJAX).
   (function(){
     var toggle = document.getElementById('sbfMenuToggle');
     var menu = document.getElementById('sbfNavCenter');
@@ -384,41 +360,6 @@
       toggle.addEventListener('click', function(){
         toggle.classList.toggle('sbf-open');
         menu.classList.toggle('sbf-open');
-      });
-    }
-
-    var form = document.getElementById('sbfContactForm');
-    var status = document.getElementById('sbfFormStatus');
-    var submitButton = document.getElementById('sbfSubmitButton');
-    if(form && status && submitButton){
-      // Return visitors to this page after FormSubmit processes the message.
-      var nextField = document.getElementById('sbfFormNext');
-      if(nextField){
-        nextField.value = window.location.origin + window.location.pathname + '?sent=1';
-      }
-
-      // Show confirmation after the browser returns from FormSubmit.
-      if(new URLSearchParams(window.location.search).get('sent') === '1'){
-        status.textContent = 'Thank you! Your message has been sent. We will be in touch soon.';
-        status.classList.add('success');
-      }
-
-      // Use a normal HTML form POST instead of fetch(). This avoids browser
-      // cross-origin/CORS fetch failures and lets FormSubmit handle the redirect.
-      form.addEventListener('submit', function(event){
-        if(!form.reportValidity()){
-          event.preventDefault();
-          return;
-        }
-        var emailField = form.querySelector('input[name="email"]');
-        var replyToField = form.querySelector('input[name="_replyto"]');
-        if(emailField && replyToField){
-          replyToField.value = emailField.value;
-        }
-        status.textContent = 'Sending your message...';
-        status.className = 'sbf-form-status';
-        submitButton.disabled = true;
-        submitButton.querySelector('span').textContent = 'Sending...';
       });
     }
   })();
